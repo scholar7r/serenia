@@ -59,7 +59,7 @@ func run(ctx context.Context, cfgPath string) error {
 		return E.Cause(err, "create server")
 	}
 
-	if err := srv.Start(); err != nil {
+	if err = srv.Start(); err != nil {
 		return E.Cause(err, "start server")
 	}
 
