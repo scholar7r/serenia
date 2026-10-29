@@ -27,7 +27,7 @@ type Server struct {
 	logFactory log.Factory
 	logger     log.Logger
 	httpServer *http.Server
-	profile    *profile.ProfileManager
+	profile    *profile.Manager
 	users      []option.User
 	userMap    map[string]option.User
 }
@@ -45,7 +45,7 @@ func New(ctx context.Context, options option.Options) (*Server, error) {
 		return nil, E.Cause(err, "create log factory")
 	}
 
-	profileManager, err := profile.NewProfileManager(
+	profileManager, err := profile.NewManager(
 		ctx,
 		logFactory.NewLogger("profile"),
 		common.Map(options.Outbounds, func(it badoption.Listable[boxOption.Outbound]) []boxOption.Outbound {

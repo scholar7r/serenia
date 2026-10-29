@@ -16,7 +16,7 @@ import (
 
 type Profile struct {
 	option.Profile
-	manager *ProfileManager
+	manager *Manager
 }
 
 func (p *Profile) Render(vars map[string]string) (*boxOption.Options, error) {
@@ -36,17 +36,17 @@ func (p *Profile) Render(vars map[string]string) (*boxOption.Options, error) {
 		return nil, E.Cause(err, "marshal template")
 	}
 
-	tmpl, err := template.New(p.Name).Option("missingkey=error").Parse(string(content))
+	tpl, err := template.New(p.Name).Option("missingkey=error").Parse(string(content))
 	if err != nil {
 		return nil, E.Cause(err, "parse template")
 	}
 
-	var rendered bytes.Buffer
-	if err := tmpl.Execute(&rendered, vars); err != nil {
+	var b bytes.Buffer
+	if err = tpl.Execute(&b, vars); err != nil {
 		return nil, E.Cause(err, "render template")
 	}
 
-	options, err = json.UnmarshalExtendedContext[boxOption.Options](p.manager.ctx, rendered.Bytes())
+	options, err = json.UnmarshalExtendedContext[boxOption.Options](p.manager.ctx, b.Bytes())
 	if err != nil {
 		return nil, E.Cause(err, "unmarshal rendered template")
 	}
@@ -59,20 +59,20 @@ func (p *Profile) Render(vars map[string]string) (*boxOption.Options, error) {
 	return &options, nil
 }
 
-type ProfileManager struct {
+type Manager struct {
 	ctx       context.Context
 	logger    logger.Logger
 	outbounds [][]boxOption.Outbound
 	profiles  []*Profile
 }
 
-func NewProfileManager(
+func NewManager(
 	ctx context.Context,
 	logger logger.Logger,
 	outbounds [][]boxOption.Outbound,
 	profiles []option.Profile,
-) (*ProfileManager, error) {
-	manager := &ProfileManager{
+) (*Manager, error) {
+	manager := &Manager{
 		ctx:       ctx,
 		logger:    logger,
 		outbounds: outbounds,
@@ -92,7 +92,7 @@ func NewProfileManager(
 	return manager, nil
 }
 
-func (m *ProfileManager) ProfileByName(name string) *Profile {
+func (m *Manager) ProfileByName(name string) *Profile {
 	for _, v := range m.profiles {
 		if v.Name == name {
 			return v
