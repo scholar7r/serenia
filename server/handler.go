@@ -27,13 +27,13 @@ func (s *Server) handleProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if len(user.Profile) == 0 {
+	if len(user.Profiles) == 0 {
 		s.logger.Error("request for uuid ", uuid, ": user has no profile")
 		http.Error(w, "user has no profile", http.StatusNotFound)
 		return
 	}
 
-	s.serveProfile(w, user, user.Profile[0])
+	s.serveProfile(w, user, user.Profiles[0])
 }
 
 func (s *Server) handleNamedProfile(w http.ResponseWriter, r *http.Request) {
@@ -47,7 +47,7 @@ func (s *Server) handleNamedProfile(w http.ResponseWriter, r *http.Request) {
 	}
 
 	profileName := r.PathValue("profile")
-	if !common.Contains(user.Profile, profileName) {
+	if !common.Contains(user.Profiles, profileName) {
 		s.logger.Error("request for uuid ", uuid, ": profile not permitted: ", profileName)
 		http.Error(w, "profile not permitted: "+profileName, http.StatusForbidden)
 		return

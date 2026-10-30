@@ -21,7 +21,7 @@ type Profile struct {
 
 func (p *Profile) Render(vars map[string]string) (*boxOption.Options, error) {
 	outbounds := common.FlatMap(p.manager.outbounds, func(it []boxOption.Outbound) []boxOption.Outbound {
-		if !common.Contains(p.Outbound, it[0].Tag) {
+		if !common.Contains(p.Outbounds, it[0].Tag) {
 			return nil
 		}
 		return it

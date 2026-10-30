@@ -9,14 +9,14 @@ import (
 )
 
 type Profile struct {
-	Name     string                     `json:"name,omitempty"`
-	Outbound badoption.Listable[string] `json:"outbound,omitempty"`
+	Name      string                     `json:"name,omitempty"`
+	Outbounds badoption.Listable[string] `json:"outbounds,omitempty"`
 }
 
 type User struct {
-	Name    string                     `json:"name,omitempty"`
-	UUID    string                     `json:"uuid,omitempty"`
-	Profile badoption.Listable[string] `json:"profile,omitempty"`
+	Name     string                     `json:"name,omitempty"`
+	UUID     string                     `json:"uuid,omitempty"`
+	Profiles badoption.Listable[string] `json:"profiles,omitempty"`
 }
 
 func (u User) Variables() map[string]string {
