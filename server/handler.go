@@ -9,7 +9,7 @@ import (
 	"github.com/scholar7r/serenia/option"
 )
 
-func (s *Server) Hanlder() http.Handler {
+func (s *Server) Handler() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /s/{uuid}", s.handleProfile)
 	mux.HandleFunc("GET /s/{uuid}/{profile}", s.handleNamedProfile)

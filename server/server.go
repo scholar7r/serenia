@@ -80,7 +80,7 @@ func New(ctx context.Context, options option.Options) (*Server, error) {
 
 	server.httpServer = &http.Server{
 		Addr:    options.Listen,
-		Handler: server.Hanlder(),
+		Handler: server.Handler(),
 	}
 
 	return server, nil
