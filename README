@@ -1,0 +1,11 @@
+Serenia - Lightweight profile distribution service for Sing-Box
+***************************************************************
+
+Copyright (c) 2026 scholar7r <mail@0x7r.com>.
+
+
+Compilation
+===========
+
+To compile run:
+    make build
