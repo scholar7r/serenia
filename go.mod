@@ -3,7 +3,7 @@ module github.com/scholar7r/serenia
 go 1.27.3
 
 require (
-	github.com/sagernet/sing v0.9.7-0.20261108125321-2275f1dd29bd
+	github.com/sagernet/sing v0.9.7-0.20261109144002-52b8b5cf428c
 	github.com/sagernet/sing-box v1.14.4
 )
 
